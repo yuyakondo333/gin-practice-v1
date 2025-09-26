@@ -1,0 +1,36 @@
+# ワークフローの名前を「Lint」と定義（GitHub UI上での表示名）
+name: Lint
+
+# このワークフローをいつ実行するかの条件を定義
+on:
+  # pushイベント（コードがプッシュされた時）に実行
+  push:
+    # mainブランチにプッシュされた時のみ実行
+    branches: main  # いつチェックするか
+
+# 実行するジョブ群を定義
+jobs:
+  # ジョブ名を「golangci」と定義
+  golangci:
+    # GitHub UI上での表示名を「lint」に設定
+    name: lint
+    # Ubuntu Linux最新版の仮想環境で実行
+    runs-on: ubuntu-latest
+    # このジョブで実行する手順を定義
+    steps:
+      # Go言語セットアップアクション（v5）を使用
+      - uses: actions/setup-go@v5
+        # setup-goアクションに渡すパラメータ
+        with:
+          # Go言語の安定版（最新安定リリース）をインストール
+          go-version: 'stable'
+      # リポジトリのソースコードをランナーにダウンロード
+      - uses: actions/checkout@v4
+      # golangci-lintによる静的解析ステップの名前を定義
+      - name: golangci-lint
+        # 公式golangci-lintアクション（v4）を使用して静的解析を実行
+        uses: golangci/golangci-lint-action@v4
+        # golangci-lintアクションに渡すパラメータ
+        with:
+          # golangci-lintの最新版を使用してコード品質をチェック
+          version: latest
