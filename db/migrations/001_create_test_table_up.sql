@@ -1,0 +1,5 @@
+-- UP: テスト用マイグレーションテーブルの作成
+CREATE TABLE IF NOT EXISTS testmigrates (
+    id SERIAL PRIMARY KEY,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
