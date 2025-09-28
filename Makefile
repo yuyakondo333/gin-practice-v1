@@ -1,7 +1,7 @@
 # Makefile for Database Operations
 
 # 変数の定義
-DB_CONTAINER = twitter-db-1
+DB_CONTAINER = gin-practice-v1-db-1
 DB_NAME = myapp
 DB_USER = postgres
 
