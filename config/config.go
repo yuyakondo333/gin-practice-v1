@@ -36,7 +36,7 @@ func LoadConfig() {
 
 	// デフォルト値の設定
 	viper.SetDefault("database.host", "localhost")
-	viper.SetDefault("database.port", 5432)
+	viper.SetDefault("database.port", 5433)
 	viper.SetDefault("database.user", "postgres")
 	viper.SetDefault("database.password", "postgres")
 	viper.SetDefault("database.dbname", "myapp")

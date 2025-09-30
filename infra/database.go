@@ -1,42 +1,24 @@
 package infra
 
 import (
-	"fmt"
-
-	"github.com/you/myapp-backend/config"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
 )
 
-var DB *gorm.DB
+type DB struct {
+	*gorm.DB
+}
 
-func InitDB() {
-	var err error
-
-	dsn := config.AppConfig.Database.GetDSN()
-
-	DB, err = gorm.Open(postgres.Open(dsn), &gorm.Config{
-		Logger: logger.Default.LogMode(logger.Info),
+func NewDB(dsn string) (*DB, error) {
+	logger := logger.Default.LogMode(logger.Warn)
+	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{
+		Logger: logger,
 	})
 
 	if err != nil {
-		DB = nil
-		return
+		return nil, err
 	}
-}
 
-func GetDB() *gorm.DB {
-	return DB
-}
-
-func CloseDB() error {
-	if DB == nil {
-		return nil
-	}
-	sqlDB, err := DB.DB()
-	if err != nil {
-		return fmt.Errorf("データベース接続の取得に失敗しました: %v", err)
-	}
-	return sqlDB.Close()
+	return &DB{db}, nil
 }
