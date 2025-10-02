@@ -1,0 +1,2 @@
+DROP TABLE tweets;
+DROP EXTENSION IF EXISTS "pgcrypto";
